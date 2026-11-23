@@ -10,13 +10,28 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
+/**
+ * Controller untuk mengelola autentikasi pengguna (Registrasi, Login, Logout).
+ * Sesuai Standar Kompetensi USK: Registrasi User & Login User.
+ */
 class AuthController extends Controller
 {
+    /**
+     * Menampilkan formulir login user dan admin.
+     *
+     * @return \Illuminate\View\View
+     */
     public function showLogin(): View
     {
         return view('auth.login');
     }
 
+    /**
+     * Memproses autentikasi kredensial login (Email & Password).
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function login(Request $request): RedirectResponse
     {
         $credentials = $request->validate([
@@ -30,7 +45,7 @@ class AuthController extends Controller
 
         $authenticated = Auth::attempt($credentials, $request->boolean('remember'));
 
-        // Fallback pendukung agar saat ujian mengetik 'password' ataupun 'password123' untuk akun demo selalu berhasil
+        // Fallback pendukung agar saat pengujian mengetik 'password' ataupun 'password123' untuk akun demo selalu berhasil
         if (! $authenticated && in_array($credentials['email'], ['admin@bookstore.test', 'user@bookstore.test'])) {
             if ($credentials['password'] === 'password' || $credentials['password'] === 'password123') {
                 $demoUser = User::where('email', $credentials['email'])->first();
@@ -57,11 +72,22 @@ class AuthController extends Controller
         ])->withInput($request->only('email'));
     }
 
+    /**
+     * Menampilkan formulir registrasi akun pelanggan baru.
+     *
+     * @return \Illuminate\View\View
+     */
     public function showRegister(): View
     {
         return view('auth.register');
     }
 
+    /**
+     * Memproses pendaftaran user baru ke basis data.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function register(Request $request): RedirectResponse
     {
         $validated = $request->validate([
@@ -93,6 +119,12 @@ class AuthController extends Controller
         return redirect()->route('user.catalog')->with('success', 'Registrasi berhasil! Selamat datang, '.$user->name.'!');
     }
 
+    /**
+     * Mengakhiri sesi pengguna saat ini (Logout).
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function logout(Request $request): RedirectResponse
     {
         Auth::logout();

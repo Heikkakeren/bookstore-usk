@@ -53,6 +53,7 @@
 
                             <form method="POST" action="{{ route('login.post') }}">
                                 @csrf
+
                                 <div class="mb-3">
                                     <label class="form-label fw-semibold">Email</label>
                                     <div class="input-group">

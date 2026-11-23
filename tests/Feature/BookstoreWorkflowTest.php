@@ -240,4 +240,167 @@ class BookstoreWorkflowTest extends TestCase
             'name' => 'Admin Self',
         ]);
     }
+
+    /**
+     * Uji Standar USK: Admin CRUD Kategori Buku
+     */
+    public function test_admin_can_create_update_and_delete_category(): void
+    {
+        // 1. Create Kategori
+        $createResponse = $this->actingAs($this->admin)->post(route('admin.categories.store'), [
+            'name' => 'Sains & Fisika',
+        ]);
+        $createResponse->assertRedirect(route('admin.categories.index'));
+        $this->assertDatabaseHas('categories', ['name' => 'Sains & Fisika', 'slug' => 'sains-fisika']);
+
+        $category = Category::where('name', 'Sains & Fisika')->first();
+
+        // 2. Update Kategori
+        $updateResponse = $this->actingAs($this->admin)->put(route('admin.categories.update', $category), [
+            'name' => 'Sains & Alam',
+        ]);
+        $updateResponse->assertRedirect(route('admin.categories.index'));
+        $this->assertDatabaseHas('categories', ['id' => $category->id, 'name' => 'Sains & Alam']);
+
+        // 3. Delete Kategori (tanpa buku terikat)
+        $deleteResponse = $this->actingAs($this->admin)->delete(route('admin.categories.destroy', $category));
+        $deleteResponse->assertRedirect(route('admin.categories.index'));
+        $this->assertDatabaseMissing('categories', ['id' => $category->id]);
+    }
+
+    /**
+     * Uji Standar USK: Admin CRUD Data Buku
+     */
+    public function test_admin_can_create_update_and_delete_book(): void
+    {
+        $category = Category::first();
+
+        // 1. Create Buku & Stok Otomatis
+        $createResponse = $this->actingAs($this->admin)->post(route('admin.books.store'), [
+            'category_id' => $category->id,
+            'title' => 'Belajar Pemrograman PHP Modern',
+            'author' => 'Habibi',
+            'publisher' => 'Informatika',
+            'price' => 125000,
+            'stock' => 15,
+            'description' => 'Panduan lengkap PHP 8.2+',
+        ]);
+        $createResponse->assertRedirect(route('admin.books.index'));
+        $this->assertDatabaseHas('books', ['title' => 'Belajar Pemrograman PHP Modern']);
+
+        $newBook = Book::where('title', 'Belajar Pemrograman PHP Modern')->first();
+        $this->assertDatabaseHas('stocks', ['book_id' => $newBook->id, 'quantity' => 15]);
+
+        // 2. Update Buku & Stok
+        $updateResponse = $this->actingAs($this->admin)->put(route('admin.books.update', $newBook), [
+            'category_id' => $category->id,
+            'title' => 'Belajar Pemrograman PHP Modern (Edisi 2)',
+            'author' => 'Habibi',
+            'publisher' => 'Informatika',
+            'price' => 135000,
+            'stock' => 20,
+            'description' => 'Revisi dan penambahan materi baru.',
+        ]);
+        $updateResponse->assertRedirect(route('admin.books.index'));
+        $this->assertDatabaseHas('books', ['id' => $newBook->id, 'title' => 'Belajar Pemrograman PHP Modern (Edisi 2)', 'price' => 135000]);
+        $this->assertDatabaseHas('stocks', ['book_id' => $newBook->id, 'quantity' => 20]);
+
+        // 3. Delete Buku
+        $deleteResponse = $this->actingAs($this->admin)->delete(route('admin.books.destroy', $newBook));
+        $deleteResponse->assertRedirect(route('admin.books.index'));
+        $this->assertDatabaseMissing('books', ['id' => $newBook->id]);
+    }
+
+    /**
+     * Uji Standar USK: Admin List User yang sudah terdaftar
+     */
+    public function test_admin_can_view_registered_users_list(): void
+    {
+        $response = $this->actingAs($this->admin)->get(route('admin.users.index'));
+        $response->assertStatus(200);
+        $response->assertSee($this->user->name);
+        $response->assertSee($this->user->email);
+    }
+
+    /**
+     * Uji Standar USK: Admin List Pesanan Buku dari user yang berbeda-beda
+     */
+    public function test_admin_can_view_orders_list(): void
+    {
+        // Buat order untuk $this->user
+        $order = \App\Models\Order::create([
+            'order_code' => 'ORD-TEST-001',
+            'user_id' => $this->user->id,
+            'total_price' => 150000,
+            'status' => 'pending',
+            'shipping_address' => 'Jl. Pengujian No. 10',
+            'payment_method' => 'transfer',
+        ]);
+
+        $response = $this->actingAs($this->admin)->get(route('admin.orders.index'));
+        $response->assertStatus(200);
+        $response->assertSee('ORD-TEST-001');
+        $response->assertSee($this->user->name);
+    }
+
+    /**
+     * Uji Standar USK: User Registrasi
+     */
+    public function test_user_can_register_new_account(): void
+    {
+        $response = $this->post(route('register.post'), [
+            'name' => 'Ahmad Dahlan',
+            'email' => 'ahmad@example.com',
+            'password' => 'password123',
+            'password_confirmation' => 'password123',
+            'phone' => '081234567890',
+            'address' => 'Jl. Merdeka No. 1',
+        ]);
+
+        $response->assertRedirect(route('user.catalog'));
+        $this->assertDatabaseHas('users', [
+            'name' => 'Ahmad Dahlan',
+            'email' => 'ahmad@example.com',
+            'role' => 'user',
+        ]);
+        $this->assertAuthenticated();
+    }
+
+    /**
+     * Uji Standar USK: User Login
+     */
+    public function test_user_can_login_with_valid_credentials(): void
+    {
+        $response = $this->post(route('login.post'), [
+            'email' => 'user@test.com',
+            'password' => 'password123',
+        ]);
+
+        $response->assertRedirect(route('user.catalog'));
+        $this->assertAuthenticatedAs($this->user);
+    }
+
+    /**
+     * Uji Standar USK: User Melihat detail halaman About Us
+     */
+    public function test_user_can_view_about_us_page(): void
+    {
+        $response = $this->get(route('about'));
+        $response->assertStatus(200);
+        $response->assertSee('Tentang Toko Buku BookStore');
+    }
+
+    /**
+     * Uji Standar USK: User Pencarian Buku
+     */
+    public function test_user_can_search_books(): void
+    {
+        $responseFound = $this->get(route('user.catalog', ['search' => 'Mastering']));
+        $responseFound->assertStatus(200);
+        $responseFound->assertSee('Mastering Laravel');
+
+        $responseNotFound = $this->get(route('user.catalog', ['search' => 'JudulBukuTidakPernahAda123']));
+        $responseNotFound->assertStatus(200);
+        $responseNotFound->assertDontSee('Mastering Laravel');
+    }
 }

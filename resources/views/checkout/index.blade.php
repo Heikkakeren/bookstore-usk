@@ -80,11 +80,11 @@
                 <div class="card border-0 shadow-sm rounded-3">
                     <div class="card-header bg-white py-3 border-bottom">
                         <h6 class="fw-bold mb-0 text-dark">
-                            <i class="bi bi-wallet2 text-success me-2"></i>Pilihan Metode Pembayaran <span class="text-danger">*</span>
+                            <i class="bi bi-wallet2 text-success me-2"></i>Payment at Delivery (Pembayaran Buku Sebelum Buku Dikirim) <span class="text-danger">*</span>
                         </h6>
                     </div>
                     <div class="card-body p-4">
-                        <p class="text-muted small mb-3">Pilih cara pembayaran yang paling nyaman untuk Anda:</p>
+                        <p class="text-muted small mb-3">Sesuai ketentuan, pesanan buku akan diproses dan dikirim setelah pembayaran terverifikasi oleh admin toko:</p>
 
                         @error('payment_method')
                             <div class="alert alert-danger py-2 small mb-3">

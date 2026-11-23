@@ -8,8 +8,17 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ * Controller untuk menampilkan katalog dan detail buku bagi pengunjung/user.
+ * Sesuai Standar Kompetensi USK: Pencarian Buku & Tampilan Katalog Buku.
+ */
 class CatalogController extends Controller
 {
+    /**
+     * Menampilkan halaman beranda (landing page) toko buku.
+     *
+     * @return \Illuminate\View\View
+     */
     public function landing(): View
     {
         $categories = Category::withCount('books')->orderBy('name')->get();
@@ -25,6 +34,12 @@ class CatalogController extends Controller
         return view('landing', compact('featuredBooks', 'categories', 'totalBooks', 'totalCategories'));
     }
 
+    /**
+     * Menampilkan katalog buku dengan fitur pencarian dan filter kategori.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
     public function index(Request $request): View
     {
         $categories = Category::orderBy('name')->get();
@@ -34,7 +49,8 @@ class CatalogController extends Controller
             $searchTerm = $request->search;
             $query->where(function ($q) use ($searchTerm) {
                 $q->where('title', 'like', "%{$searchTerm}%")
-                    ->orWhere('author', 'like', "%{$searchTerm}%");
+                    ->orWhere('author', 'like', "%{$searchTerm}%")
+                    ->orWhere('publisher', 'like', "%{$searchTerm}%");
             });
         }
 
@@ -42,11 +58,17 @@ class CatalogController extends Controller
             $query->where('category_id', $request->category);
         }
 
-        $books = $query->latest()->paginate(12)->withQueryString();
+        $books = $query->latest()->paginate(10)->withQueryString();
 
         return view('home', compact('books', 'categories'));
     }
 
+    /**
+     * Menampilkan rincian informasi dan spesifikasi detail buku.
+     *
+     * @param  \App\Models\Book  $book
+     * @return \Illuminate\View\View
+     */
     public function show(Book $book): View
     {
         $book->load(['category', 'stock']);

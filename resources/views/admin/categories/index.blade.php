@@ -70,23 +70,23 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-outline-danger" title="Hapus Kategori">
-                                            <i class="bi bi-trash3"></i>
+                                            <i class="bi bi-trash"></i>
                                         </button>
                                     </form>
                                 </div>
                             </td>
                         </tr>
 
-                        <!-- Modal Edit Kategori for this Item -->
-                        <div class="modal fade" id="modalEditCategory{{ $category->id }}" tabindex="-1" aria-labelledby="modalEditLabel{{ $category->id }}" aria-hidden="true">
+                        <!-- Modal Edit Kategori Inline -->
+                        <div class="modal fade" id="modalEditCategory{{ $category->id }}" tabindex="-1" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content border-0 shadow">
                                     <form method="POST" action="{{ route('admin.categories.update', $category) }}">
                                         @csrf
                                         @method('PUT')
-                                        <div class="modal-header" style="background-color: var(--forest-sand);">
-                                            <h6 class="modal-title fw-bold text-dark font-serif" id="modalEditLabel{{ $category->id }}">
-                                                <i class="bi bi-pencil-square text-warning me-2"></i>Edit Kategori Buku
+                                        <div class="modal-header bg-light">
+                                            <h6 class="modal-title fw-bold text-dark">
+                                                <i class="bi bi-pencil-square me-2 text-warning"></i>Edit Kategori: {{ $category->name }}
                                             </h6>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
@@ -101,7 +101,6 @@
                                                        class="form-control" 
                                                        value="{{ old('name', $category->name) }}" 
                                                        required>
-                                                <div class="form-text small text-muted">Slug URL akan diperbarui otomatis berdasarkan nama kategori ini.</div>
                                             </div>
                                         </div>
                                         <div class="modal-footer bg-light py-2">
@@ -158,11 +157,10 @@
                                class="form-control @error('name') is-invalid @enderror" 
                                placeholder="Contoh: Pemrograman & Komputer" 
                                value="{{ old('name') }}" 
-                               required>
+                               required autofocus>
                         @error('name')
                             <div class="invalid-feedback d-block">{{ $message }}</div>
                         @enderror
-                        <div class="form-text small text-muted">Nama kategori harus unik dan belum pernah didaftarkan sebelumnya.</div>
                     </div>
                 </div>
                 <div class="modal-footer bg-light py-2">

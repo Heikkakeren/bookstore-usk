@@ -8,13 +8,28 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ * Controller untuk mengelola pesan kontak dari pengunjung/user ke admin.
+ * Sesuai Standar Kompetensi USK: Contact to Admin (Mengirim pesan ke admin).
+ */
 class ContactController extends Controller
 {
+    /**
+     * Menampilkan formulir kontak dan informasi kantor toko buku.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index(): View
     {
         return view('contact');
     }
 
+    /**
+     * Menyimpan pesan baru dari pengguna/pengunjung untuk admin toko.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request): RedirectResponse
     {
         // Cegah Admin mengirim pesan ke diri sendiri

@@ -68,6 +68,8 @@
                                                value="{{ old('email') }}" placeholder="email@contoh.com" required>
                                         @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                     </div>
+
+
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label fw-semibold" for="regPassword">Password <span class="text-danger">*</span></label>
                                         <div class="input-group">

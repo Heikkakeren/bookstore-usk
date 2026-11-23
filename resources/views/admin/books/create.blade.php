@@ -122,14 +122,26 @@
                             <label for="stock" class="form-label small fw-bold text-secondary">
                                 Jumlah Stok Fisik <span class="text-danger">*</span>
                             </label>
-                            <input type="number" 
-                                   name="stock" 
-                                   id="stock" 
-                                   class="form-control @error('stock') is-invalid @enderror" 
-                                   placeholder="50" 
-                                   min="0" 
-                                   value="{{ old('stock', 10) }}" 
-                                   required>
+                            {{-- ========================================================================= --}}
+                            {{-- [JURUS USK - STOK BISA + DAN -]: BISA DIKETIK MANUAL & BISA KLIK TOMBOL + / - --}}
+                            {{-- (Fitur ini sudah aktif otomatis! Jika Bu Wiwit minta stok ada tombol +/-, inilah kodenya) --}}
+                            {{-- ========================================================================= --}}
+                            <div class="input-group">
+                                <button class="btn btn-outline-secondary px-3" type="button" onclick="const s = document.getElementById('stock'); if(parseInt(s.value) > 0) s.value = parseInt(s.value) - 1;" title="Kurangi Stok">
+                                    <i class="bi bi-dash-lg"></i>
+                                </button>
+                                <input type="number" 
+                                       name="stock" 
+                                       id="stock" 
+                                       class="form-control text-center fw-bold @error('stock') is-invalid @enderror" 
+                                       placeholder="50" 
+                                       min="0" 
+                                       value="{{ old('stock', 10) }}" 
+                                       required>
+                                <button class="btn btn-outline-secondary px-3" type="button" onclick="const s = document.getElementById('stock'); s.value = (parseInt(s.value) || 0) + 1;" title="Tambah Stok">
+                                    <i class="bi bi-plus-lg"></i>
+                                </button>
+                            </div>
                             @error('stock')
                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror

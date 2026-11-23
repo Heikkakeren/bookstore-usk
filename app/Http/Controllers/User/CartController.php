@@ -9,8 +9,17 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ * Controller untuk mengelola keranjang belanja buku pengguna.
+ * Sesuai Standar Kompetensi USK: Add to Cart Buku (Order memasukkan buku ke dalam keranjang).
+ */
 class CartController extends Controller
 {
+    /**
+     * Menampilkan daftar buku yang ada di dalam keranjang belanja user.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index(): View
     {
         $cartItems = Cart::with(['book.category', 'book.stock'])
@@ -22,6 +31,13 @@ class CartController extends Controller
         return view('cart.index', compact('cartItems', 'totalPrice'));
     }
 
+    /**
+     * Menambahkan buku ke dalam keranjang belanja dengan validasi stok.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Book  $book
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function add(Request $request, Book $book): RedirectResponse
     {
         $validated = $request->validate([
@@ -57,6 +73,13 @@ class CartController extends Controller
         return redirect()->route('cart.index')->with('success', 'Buku berhasil ditambahkan ke keranjang.');
     }
 
+    /**
+     * Memperbarui kuantitas buku di keranjang belanja.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Cart  $cart
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, Cart $cart): RedirectResponse
     {
         if ($cart->user_id !== auth()->id()) {
@@ -80,6 +103,12 @@ class CartController extends Controller
         return redirect()->route('cart.index')->with('success', 'Jumlah buku berhasil diperbarui.');
     }
 
+    /**
+     * Menghapus item buku dari keranjang belanja.
+     *
+     * @param  \App\Models\Cart  $cart
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Cart $cart): RedirectResponse
     {
         if ($cart->user_id !== auth()->id()) {

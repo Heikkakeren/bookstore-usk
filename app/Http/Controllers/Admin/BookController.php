@@ -11,8 +11,17 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
+/**
+ * Controller untuk mengelola CRUD Data Buku dan Stok Inventaris (Admin).
+ * Sesuai Standar Kompetensi USK: Add/Update/Delete Data Buku.
+ */
 class BookController extends Controller
 {
+    /**
+     * Menampilkan daftar buku beserta relasi kategori dan stok dengan paginasi.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index(): View
     {
         $books = Book::with(['category', 'stock'])->latest()->paginate(10);
@@ -20,6 +29,11 @@ class BookController extends Controller
         return view('admin.books.index', compact('books'));
     }
 
+    /**
+     * Menampilkan formulir penambahan buku baru beserta pilihan kategori.
+     *
+     * @return \Illuminate\View\View
+     */
     public function create(): View
     {
         $categories = Category::orderBy('name')->get();
@@ -27,6 +41,12 @@ class BookController extends Controller
         return view('admin.books.create', compact('categories'));
     }
 
+    /**
+     * Menyimpan data buku baru beserta kuantitas stoknya ke basis data.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
@@ -78,6 +98,12 @@ class BookController extends Controller
         return redirect()->route('admin.books.index')->with('success', 'Buku berhasil ditambahkan beserta inventaris stok.');
     }
 
+    /**
+     * Menampilkan informasi detail buku dan status stok terkini.
+     *
+     * @param  \App\Models\Book  $book
+     * @return \Illuminate\View\View
+     */
     public function show(Book $book): View
     {
         $book->load(['category', 'stock']);
@@ -85,6 +111,12 @@ class BookController extends Controller
         return view('admin.books.show', compact('book'));
     }
 
+    /**
+     * Menampilkan formulir edit buku beserta daftar kategori.
+     *
+     * @param  \App\Models\Book  $book
+     * @return \Illuminate\View\View
+     */
     public function edit(Book $book): View
     {
         $book->load('stock');
@@ -93,6 +125,13 @@ class BookController extends Controller
         return view('admin.books.edit', compact('book', 'categories'));
     }
 
+    /**
+     * Memperbarui informasi buku dan kuantitas stok di basis data.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Book  $book
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, Book $book): RedirectResponse
     {
         $validated = $request->validate([
@@ -147,6 +186,12 @@ class BookController extends Controller
         return redirect()->route('admin.books.index')->with('success', 'Buku dan inventaris stok berhasil diperbarui.');
     }
 
+    /**
+     * Menghapus buku dan cover fisik dari penyimpanan.
+     *
+     * @param  \App\Models\Book  $book
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Book $book): RedirectResponse
     {
         if ($book->cover_image) {

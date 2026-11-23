@@ -10,10 +10,22 @@ use App\Models\Stock;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
+/**
+ * Controller untuk mengelola alur Checkout dan Pembayaran Pelanggan (User).
+ * Sesuai Standar Kompetensi USK:
+ * - Add to Cart Buku (Order memasukkan buku ke dalam keranjang)
+ * - Payment at Delivery (Pembayaran buku sebelum buku dikirim)
+ */
 class CheckoutController extends Controller
 {
+    /**
+     * Menampilkan halaman formulir checkout beserta ringkasan keranjang belanja.
+     *
+     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
+     */
     public function index(): View|RedirectResponse
     {
         $cartItems = Cart::with(['book.category', 'book.stock'])
@@ -24,7 +36,7 @@ class CheckoutController extends Controller
             return redirect()->route('cart.index')->with('error', 'Keranjang belanja Anda masih kosong.');
         }
 
-        // Cek apakah ada barang yang stoknya sudah habis diborong pembeli lain
+        // Cek validasi ketersediaan stok fisik di gudang sebelum checkout
         foreach ($cartItems as $item) {
             $stock = $item->book->stock?->quantity ?? 0;
             if ($stock <= 0) {
@@ -41,15 +53,22 @@ class CheckoutController extends Controller
         return view('checkout.index', compact('cartItems', 'totalPrice', 'user'));
     }
 
+    /**
+     * Memproses transaksi pemesanan dengan Payment at Delivery (pembayaran sebelum pengiriman),
+     * memotong stok secara atomik melalui DB::transaction, dan mengosongkan keranjang belanja.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function process(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'shipping_address' => ['required', 'string', 'max:500'],
-            'payment_method' => ['required', 'in:qris,gopay,transfer'],
+            'payment_method' => ['required', 'in:transfer,qris,gopay'],
         ], [
-            'shipping_address.required' => 'Alamat pengiriman wajib diisi.',
+            'shipping_address.required' => 'Alamat pengiriman buku wajib diisi.',
             'payment_method.required' => 'Metode pembayaran wajib dipilih.',
-            'payment_method.in' => 'Metode pembayaran tidak valid. Silakan pilih QRIS, GoPay, atau Transfer Bank.',
+            'payment_method.in' => 'Metode pembayaran tidak valid. Silakan pilih Transfer Bank, QRIS, atau GoPay.',
         ]);
 
         $cartItems = Cart::with(['book.stock'])
@@ -72,7 +91,7 @@ class CheckoutController extends Controller
         }
 
         $totalPrice = $cartItems->sum(fn (Cart $item) => $item->quantity * $item->book->price);
-        $orderCode = 'ORD-'.strtoupper(uniqid());
+        $orderCode = 'ORD-' . strtoupper(Str::random(10));
 
         try {
             DB::transaction(function () use ($cartItems, $totalPrice, $orderCode, $validated) {
@@ -108,10 +127,10 @@ class CheckoutController extends Controller
                 // Kosongkan keranjang belanja milik user
                 Cart::where('user_id', auth()->id())->delete();
             });
-        } catch (\Throwable $e) {
-            return redirect()->route('cart.index')->with('error', $e->getMessage());
-        }
 
-        return redirect()->route('orders.history')->with('success', 'Pesanan Anda berhasil dibuat dengan nomor transaksi: '.$orderCode);
+            return redirect()->route('orders.history')->with('success', "Pesanan Anda berhasil dibuat (Kode: {$orderCode})! Silakan selesaikan pembayaran agar pesanan segera dikirim.");
+        } catch (\Exception $e) {
+            return redirect()->route('cart.index')->with('error', 'Gagal memproses pesanan: ' . $e->getMessage());
+        }
     }
 }

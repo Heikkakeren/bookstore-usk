@@ -10,8 +10,17 @@ use App\Models\Order;
 use App\Models\User;
 use Illuminate\View\View;
 
+/**
+ * Controller untuk mengelola ringkasan statistik dan metrik operasional toko pada Dashboard Admin.
+ * Sesuai Standar Kompetensi USK: Control dan Monitoring Keseluruhan Data Buku, User, dan Pesanan.
+ */
 class AdminDashboardController extends Controller
 {
+    /**
+     * Menampilkan dashboard utama administrator berisi ringkasan metrik buku, kategori, user, dan pesanan terbaru.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index(): View
     {
         $totalBooks = Book::count();

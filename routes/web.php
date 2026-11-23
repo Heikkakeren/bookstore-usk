@@ -110,3 +110,6 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/orders/{order}', [OrderHistoryController::class, 'show'])->name('orders.show');
     Route::get('/riwayat-pesanan/{order}', [OrderHistoryController::class, 'show'])->name('user.order.show');
 });
+
+
+

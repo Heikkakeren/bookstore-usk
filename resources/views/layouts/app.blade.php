@@ -442,7 +442,7 @@
                                 @endif
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <form method="POST" action="{{ route('logout') }}" class="m-0">
+                                    <form method="POST" action="{{ route('logout') }}" class="m-0" onsubmit="return confirm('Apakah Anda yakin ingin keluar (logout) dari sistem BookStore?');">
                                         @csrf
                                         <button type="submit" class="dropdown-item text-danger py-2">
                                             <i class="bi bi-box-arrow-right me-2"></i>Keluar (Logout)
