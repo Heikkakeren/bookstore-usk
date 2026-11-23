@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Tugas Praktik Demonstrasi (FR.IA.02) - BookStore Laravel 11</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --forest-primary: #163326;
+            --forest-accent: #c28b57;
+            --forest-sand: #f3eee6;
+            --forest-cream: #fbf9f5;
+            --forest-dark: #0f241a;
+        }
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #f4f6f8;
+            color: #1a1a1a;
+            line-height: 1.8;
+            font-size: 12pt;
+        }
+        .page-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            background: white;
+            padding: 4rem 5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-radius: 4px;
+        }
+        .cover-page {
+            text-align: center;
+            min-height: 1000px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            page-break-after: always;
+            border-bottom: 2px dashed #ddd;
+            padding-bottom: 3rem;
+            margin-bottom: 3rem;
+        }
+        h1, h2, h3, h4, h5 {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            color: var(--forest-primary);
+        }
+        h1.report-title {
+            font-size: 20pt;
+            letter-spacing: 1px;
+            margin-top: 1.5rem;
+        }
+        h2.report-subtitle {
+            font-size: 16pt;
+            color: var(--forest-accent);
+            margin-bottom: 2rem;
+        }
+        h2.section-title {
+            font-size: 15pt;
+            border-bottom: 2px solid var(--forest-accent);
+            padding-bottom: 0.3rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        h3.subsection-title {
+            font-size: 13pt;
+            color: #24523e;
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+        }
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.2rem 0;
+            font-size: 11pt;
+        }
+        .table-custom th, .table-custom td {
+            border: 1px solid #d0d7de;
+            padding: 8px 12px;
+            vertical-align: top;
+        }
+        .table-custom th {
+            background-color: var(--forest-sand);
+            color: var(--forest-primary);
+            font-weight: bold;
+            text-align: center;
+        }
+        .code-box {
+            background-color: #0f241a;
+            color: #a3e635;
+            padding: 1rem 1.2rem;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 10pt;
+            margin: 1rem 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .callout-box {
+            background-color: #fff9f2;
+            border-left: 5px solid var(--forest-accent);
+            padding: 1rem 1.25rem;
+            margin: 1.2rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .screenshot-frame {
+            border: 2px dashed var(--forest-accent);
+            background-color: #fafaf8;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            border-radius: 6px;
+            margin: 1.5rem 0 0.5rem;
+        }
+        .screenshot-caption {
+            text-align: center;
+            font-weight: bold;
+            font-size: 11pt;
+            color: #24523e;
+            margin-bottom: 2rem;
+        }
+        @media print {
+            body {
+                background: white;
+            }
+            .page-container {
+                box-shadow: none;
+                padding: 0;
+                margin: 0;
+                max-width: 100%;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="no-print bg-dark text-white py-2 px-3 text-center sticky-top">
+        <span class="me-3">📘 <strong>Dokumen Laporan Praktik Demonstrasi (FR.IA.02) - BookStore Laravel 11</strong></span>
+        <button class="btn btn-warning btn-sm fw-bold me-2" onclick="window.print()"><i class="bi bi-printer me-1"></i>Cetak / Simpan ke PDF</button>
+        <a href="LAPORAN_PRAKTIK_DEMONSTRASI_USK_BOOKSTORE.docx" class="btn btn-outline-light btn-sm fw-bold"><i class="bi bi-file-earmark-word me-1"></i>Unduh File Word (.docx)</a>
+    </div>
+
+    <div class="page-container">
+
+        <!-- ================= COVER PAGE ================= -->
+        <div class="cover-page">
+            <div>
+                <p class="text-uppercase fw-bold text-muted mb-1" style="font-size: 11pt; letter-spacing: 2px;">
+                    LEMBAGA SERTIFIKASI PROFESI (LSP) MITRA MANDIRI INFORMATIKA<br>
+                    BADAN NASIONAL SERTIFIKASI PROFESI (BNSP)
+                </p>
+                <hr style="border-top: 2px solid var(--forest-primary); width: 60%; margin: 1.5rem auto;">
+                
+                <h1 class="report-title">LAPORAN TUGAS PRAKTIK DEMONSTRASI (FR.IA.02)</h1>
+                <h2 class="report-subtitle">PENGEMBANGAN APLIKASI E-COMMERCE BOOKSTORE<br>BERBASIS WEB DENGAN FRAMEWORK LARAVEL 11</h2>
+                
+                <p class="text-muted" style="font-size: 12pt; max-width: 650px; margin: 1.5rem auto;">
+                    Disusun untuk Memenuhi Persyaratan Uji Sertifikasi Kompetensi (USK)<br>
+                    <strong>Skema Sertifikasi: Pengembang Web Pratama (Junior Web Developer)</strong><br>
+                    Nomor Skema: 020403
+                </p>
+            </div>
+
+            <div style="max-width: 550px; margin: 0 auto; width: 100%;">
+                <table class="table-custom text-start">
+                    <tr>
+                        <td style="width: 45%;"><strong>Nama Peserta (Asesi)</strong></td>
+                        <td>: <strong>Muhammad Habibi</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Skema Sertifikasi</strong></td>
+                        <td>: Pengembang Web Pratama</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nomor Skema</strong></td>
+                        <td>: 020403</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nama Asesor Penguji</strong></td>
+                        <td>: <strong>Wiwit Rodiyati</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tempat Uji Kompetensi (TUK)</strong></td>
+                        <td>: Sewaktu / Tempat Kerja / Mandiri</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Repository GitHub</strong></td>
+                        <td>: <a href="https://github.com/Heikkakeren/bookstore" target="_blank">https://github.com/Heikkakeren/bookstore</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rancangan Mockup UI</strong></td>
+                        <td>: [Tempel Tautan Figma/Canva Anda]</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div>
+                <p class="fw-bold mb-0" style="font-size: 13pt; color: var(--forest-primary);">
+                    JAKARTA<br>TAHUN 2026
+                </p>
+            </div>
+        </div>
+
+        <!-- ================= LEMBAR PENGESAHAN ================= -->
+        <h2 class="section-title">LEMBAR PENGESAHAN & PENILAIAN PRAKTIK DEMONSTRASI</h2>
+        <p>Laporan Tugas Praktik Demonstrasi pengembangan aplikasi BookStore ini telah diperiksa, diuji, dan dinyatakan memenuhi seluruh Standar Kriteria Unjuk Kerja (KUK) pada Skema Sertifikasi Pengembang Web Pratama (Junior Web Developer).</p>
+        
+        <table class="table-custom mb-4">
+            <tr>
+                <td style="width: 35%;">Tanggal Pengujian</td>
+                <td>: ................................................................. 2026</td>
+            </tr>
+            <tr>
+                <td>Nama Asesi (Peserta)</td>
+                <td>: <strong>Muhammad Habibi</strong></td>
+            </tr>
+            <tr>
+                <td>Nama Asesor Penguji</td>
+                <td>: <strong>Wiwit Rodiyati</strong></td>
+            </tr>
+            <tr>
+                <td>Keputusan Penilaian</td>
+                <td>: <strong>[ &nbsp; ] KOMPETEN (K) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ &nbsp; ] BELUM KOMPETEN (BK)</strong></td>
+            </tr>
+        </table>
+
+        <table class="table-custom text-center mb-5" style="border: none;">
+            <tr style="border: none;">
+                <td style="width: 50%; border: none;">
+                    Tanda Tangan Asesi (Peserta),<br><br><br><br><br>
+                    <strong>( Muhammad Habibi )</strong>
+                </td>
+                <td style="width: 50%; border: none;">
+                    Tanda Tangan Asesor Penguji,<br><br><br><br><br>
+                    <strong>( Wiwit Rodiyati )</strong>
+                </td>
+            </tr>
+        </table>
+
+        <!-- ================= KATA PENGANTAR ================= -->
+        <h2 class="section-title">KATA PENGANTAR</h2>
+        <p>Puji dan syukur penulis panjatkan kehadirat Tuhan Yang Maha Esa atas rahmat dan karunia-Nya, sehingga Laporan Tugas Praktik Demonstrasi (FR.IA.02) dengan judul <em>"Pengembangan Aplikasi E-Commerce BookStore Berbasis Web dengan Framework Laravel 11"</em> ini dapat diselesaikan dengan baik dan tepat waktu.</p>
+        <p>Laporan ini disusun sebagai bukti otentik unjuk kerja dalam rangka Uji Sertifikasi Kompetensi (USK) Skema Pengembang Web Pratama (Junior Web Developer) No. 020403 pada Lembaga Sertifikasi Profesi (LSP) berlisensi BNSP. Melalui proyek ini, seluruh unit kompetensi—mulai dari perancangan user interface, penerapan sintaks bahasa pemrograman, pengorganisasian file MVC yang rapi, penulisan kode sesuai best practices dengan komentar/DocBlocks, hingga pengujian otomatis—telah diimplementasikan secara komprehensif.</p>
+        <p>Penulis mengucapkan terima kasih yang sebesar-besarnya kepada Asesor Penguji Ibu Wiwit Rodiyati, instruktur, dan LSP LSPMI atas bimbingan dan kesempatan yang diberikan.</p>
+        <p class="text-end mt-4">Jakarta, November 2026<br><br><strong>Muhammad Habibi</strong></p>
+
+        <!-- ================= BAB I: PENDAHULUAN ================= -->
+        <h2 class="section-title">BAB I: PENDAHULUAN</h2>
+        <h3 class="subsection-title">1.1 Latar Belakang Masalah</h3>
+        <p>Perkembangan teknologi informasi dan internet telah mengubah kebiasaan masyarakat dalam memperoleh bahan bacaan dan literatur. Platform e-commerce kini menjadi sarana utama bagi masyarakat untuk mencari, memilih, dan membeli buku secara cepat tanpa terkendala batasan geografis. Pengelolaan toko buku daring membutuhkan sistem informasi yang handal, terstruktur, aman, serta memiliki alur manajemen inventaris yang akurat antara data buku dan stok fisik.</p>
+        <p>Dalam skema sertifikasi Pengembang Web Pratama (Junior Web Developer) No. 020403, asesi diwajibkan untuk membangun aplikasi BookStore yang melayani 2 aktor utama, yaitu Administrator (pengendali katalog, inventaris stok, data pelanggan, dan pesanan) serta User/Pelanggan (pencarian buku, keranjang belanja, dan pembayaran sebelum pengiriman).</p>
+
+        <h3 class="subsection-title">1.2 Tujuan Proyek</h3>
+        <ol>
+            <li>Membangun sistem toko buku daring yang responsif, estetis, dan ramah pengguna sesuai rancangan mockup UI (Unit J.620100.005.02).</li>
+            <li>Mengimplementasikan 4 fitur utama Administrator: CRUD Kategori, CRUD Buku & Stok, Monitoring User Terdaftar, dan Pengelolaan Pesanan Multi-User.</li>
+            <li>Mengimplementasikan 7 fitur utama User: Registrasi Akun, Login Sesi, Detail Halaman About Us, Kontak Hubungi Admin, Pencarian Buku Cepat, Keranjang Belanja (Add to Cart), dan Pembayaran Sebelum Kirim (Payment at Delivery).</li>
+            <li>Menerapkan standar penulisan kode terstruktur dan ber-DocBlocks pada setiap fungsi/program (Unit J.620100.010.01 s/d J.620100.016.01).</li>
+            <li>Menjamin keandalan aplikasi melalui automated testing dengan tingkat kelulusan 100%.</li>
+        </ol>
+
+        <h3 class="subsection-title">1.3 Batasan Proyek & Ruang Lingkup</h3>
+        <ul>
+            <li><strong>Framework & Bahasa:</strong> PHP 8.2+ dengan Framework Laravel 11.</li>
+            <li><strong>Basis Data:</strong> Relasional MariaDB / SQLite dengan normalisasi relasi 1:1, 1:N, dan M:N.</li>
+            <li><strong>Antarmuka Pengguna:</strong> Bootstrap 5.3, Bootstrap Icons, Blade Templating Engine.</li>
+            <li><strong>Autentikasi:</strong> Berbasis Session & Cookies dengan enkripsi kata sandi Bcrypt.</li>
+        </ul>
+
+        <h3 class="subsection-title">1.4 Tautan Artefak Proyek</h3>
+        <table class="table-custom">
+            <tr>
+                <th style="width: 30%;">Artefak</th>
+                <th>Tautan Resmi (URL)</th>
+            </tr>
+            <tr>
+                <td><strong>Source Code GitHub</strong></td>
+                <td><a href="https://github.com/Heikkakeren/bookstore" target="_blank">https://github.com/Heikkakeren/bookstore</a></td>
+            </tr>
+            <tr>
+                <td><strong>Mockup UI (Figma/Canva)</strong></td>
+                <td><em>[Tempelkan tautan Figma atau Canva Anda di sini]</em></td>
+            </tr>
+            <tr>
+                <td><strong>Portal Pengumpulan LSP</strong></td>
+                <td><a href="https://lspmi.co.id" target="_blank">https://lspmi.co.id</a></td>
+            </tr>
+        </table>
+
+        <!-- ================= BAB II: PERANCANGAN SISTEM ================= -->
+        <h2 class="section-title">BAB II: PERANCANGAN SISTEM & MOCKUP USER INTERFACE</h2>
+        <h3 class="subsection-title">2.1 Analisis Kebutuhan Sistem & 2 Aktor Utama</h3>
+        <p>Sistem BookStore membagi hak akses ke dalam 2 aktor:</p>
+        <ul>
+            <li><strong>Administrator:</strong> Seseorang yang melakukan kontrol dan memonitor keseluruhan data buku, kategori, pengguna terdaftar, dan pesanan pelanggan.</li>
+            <li><strong>User (Pelanggan):</strong> Seseorang yang ingin melakukan pemilihan dan pembelian buku secara daring.</li>
+        </ul>
+
+        <h3 class="subsection-title">2.2 Arsitektur Sistem Model-View-Controller (MVC)</h3>
+        <p>Arsitektur MVC memisahkan logika aplikasi ke dalam 3 lapisan:</p>
+        <ul>
+            <li><strong>Model:</strong> Berinteraksi dengan tabel basis data MariaDB melalui Eloquent ORM.</li>
+            <li><strong>View:</strong> Menyajikan tampilan HTML responsif melalui Blade Template.</li>
+            <li><strong>Controller:</strong> Memproses logika bisnis, memvalidasi input Request, dan mengembalikan respon.</li>
+        </ul>
+
+        <h3 class="subsection-title">2.3 Perancangan Basis Data (ERD)</h3>
+        <div class="code-box">categories (1) -----> (N) books (1) <====> (1) stocks
+                           |
+                           v
+users (1) ---------> (N) orders (1) -----> (N) order_items (N)
+  |                        |
+  +------> (N) carts       +------> contacts
+  |
+  +------> payments</div>
+
+        <div class="callout-box">
+            <strong>Catatan Desain Basis Data:</strong>
+            <p class="mb-0">Pemisahan tabel <code>books</code> dan <code>stocks</code> (relasi 1:1) memisahkan data statis buku dari data kuantitas stok yang dinamis, mencegah locking tabel, serta didukung transaksi atomik <code>DB::transaction()</code>.</p>
+        </div>
+
+        <!-- ================= BAB III: IMPLEMENTASI ================= -->
+        <h2 class="section-title">BAB III: IMPLEMENTASI KODE SUMBER & FITUR RESMI</h2>
+        <h3 class="subsection-title">3.1 Pemenuhan 4 Fitur Aktor Administrator</h3>
+        <table class="table-custom">
+            <tr>
+                <th style="width: 5%;">No</th>
+                <th style="width: 25%;">Fitur Administrator</th>
+                <th style="width: 30%;">File Controller & Rute</th>
+                <th>Keterangan Implementasi</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td><strong>CRUD Kategori Buku</strong></td>
+                <td><code>CategoryController.php</code><br><code>/admin/categories</code></td>
+                <td>Tambah, edit, dan hapus kategori buku. Dilindungi proteksi relasi jika kategori masih memiliki buku.</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td><strong>CRUD Data Buku & Stok</strong></td>
+                <td><code>BookController.php</code><br><code>/admin/books</code></td>
+                <td>Tambah data buku, upload cover gambar publik, dan kuantitas stok menggunakan <code>DB::transaction()</code>.</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td><strong>List User Terdaftar</strong></td>
+                <td><code>UserManagementController.php</code><br><code>/admin/users</code></td>
+                <td>Menampilkan daftar seluruh user/pelanggan terdaftar secara terpaginasi (15 per halaman).</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td><strong>List Pesanan Multi-User</strong></td>
+                <td><code>OrderManagementController.php</code><br><code>/admin/orders</code></td>
+                <td>Menampilkan riwayat pesanan dari berbagai user dan pembaruan status pemrosesan pesanan.</td>
+            </tr>
+        </table>
+
+        <h3 class="subsection-title">3.2 Pemenuhan 7 Fitur Aktor User / Pelanggan</h3>
+        <table class="table-custom">
+            <tr>
+                <th style="width: 5%;">No</th>
+                <th style="width: 25%;">Fitur User</th>
+                <th style="width: 30%;">File Controller & Rute</th>
+                <th>Keterangan Implementasi</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td><strong>Registrasi User</strong></td>
+                <td><code>AuthController.php</code><br><code>/register</code></td>
+                <td>Formulir pendaftaran akun baru dengan validasi nama, email unik, dan password Bcrypt minimal 8 karakter.</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td><strong>Login User</strong></td>
+                <td><code>AuthController.php</code><br><code>/login</code></td>
+                <td>Autentikasi sesi email & password dengan pengalihan otomatis ke katalog belanja.</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td><strong>Detail About Us</strong></td>
+                <td><code>AboutController.php</code><br><code>/about</code></td>
+                <td>Menampilkan profil toko buku, visi literasi, jam operasional, dan nilai layanan.</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td><strong>Contact to Admin</strong></td>
+                <td><code>ContactController.php</code><br><code>/contact</code></td>
+                <td>Pengguna mengirim pesan pertanyaan/aduan ke admin yang tersimpan di basis data.</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td><strong>Pencarian Buku</strong></td>
+                <td><code>CatalogController.php</code><br><code>/katalog?search=...</code></td>
+                <td>Pencarian cepat berdasarkan judul, penulis, atau penerbit dipadukan dengan filter kategori.</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td><strong>Add to Cart Buku</strong></td>
+                <td><code>CartController.php</code><br><code>/cart</code></td>
+                <td>Menambahkan buku ke keranjang dengan validasi stok ketat (mencegah pembelian melebihi stok).</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td><strong>Payment at Delivery</strong></td>
+                <td><code>CheckoutController.php</code><br><code>/checkout</code></td>
+                <td>Pembayaran buku sebelum buku dikirim (pilihan QRIS, GoPay, Transfer Bank). Stok terpotong otomatis di tabel stocks.</td>
+            </tr>
+        </table>
+
+        <!-- ================= BAB IV: PENGUJIAN & SCREENSHOTS ================= -->
+        <h2 class="section-title">BAB IV: HASIL PENGUJIAN & DOKUMENTASI SCREENSHOTS</h2>
+        <h3 class="subsection-title">4.1 Hasil Pengujian Otomatis (PHPUnit - 22 Passed)</h3>
+        <div class="code-box">$ export PHP_INI_SCAN_DIR=":$HOME/.config/php" && php artisan test
+
+PASS  Tests\Unit\ExampleTest
+PASS  Tests\Feature\ExampleTest
+PASS  Tests\Feature\BookstoreWorkflowTest
+  ✓ public user can view catalog
+  ✓ guest is redirected to login when accessing admin dashboard
+  ✓ regular user cannot access admin dashboard (403 Forbidden)
+  ✓ admin can access admin dashboard
+  ✓ user can add book to cart and update it
+  ✓ user cannot add more than available stock
+  ✓ checkout reduces stock in stocks table and clears cart
+  ✓ checkout rejects cod and accepts gopay and transfer
+  ✓ user cannot modify or delete other users cart
+  ✓ auth pages render password visibility toggles
+  ✓ guest and user can send contact message
+  ✓ admin cannot send contact message to themselves
+  ✓ admin can create update and delete category (CRUD Kategori)
+  ✓ admin can create update and delete book (CRUD Data Buku & Stok)
+  ✓ admin can view registered users list (List User Terdaftar)
+  ✓ admin can view orders list from different users (List Pesanan)
+  ✓ user can register new account (Registrasi User)
+  ✓ user can login with valid credentials (Login User)
+  ✓ user can view about us page (Detail About Us)
+  ✓ user can search books by title, author, or publisher (Pencarian Buku)
+
+Tests:  22 passed (80 assertions) &bull; Duration: 1.78s</div>
+
+        <h3 class="subsection-title">4.2 Dokumentasi Tangkapan Layar Tampilan Aplikasi (16 Gambar)</h3>
+        <p>Kotak-kotak di bawah ini telah disiapkan untuk tempat menempelkan gambar tangkapan layar tampilan aplikasi:</p>
+
+        <!-- Screenshot 1 -->
+        <div class="screenshot-frame">
+            <h5 class="fw-bold text-dark"><i class="bi bi-image me-2"></i>[ TEMPAT MENEMPELKAN TANGKAPAN LAYAR ]</h5>
+            <p class="text-muted small mb-0">Petunjuk: Buka halaman beranda BookStore di browser, ambil screenshot, lalu tempelkan di kotak ini.</p>
+        </div>
+        <div class="screenshot-caption">Gambar 4.1: Tangkapan Layar Halaman Beranda & Katalog Buku (Landing Page)</div>
+
+        <!-- Screenshot 2 -->
+        <div class="screenshot-frame">
+            <h5 class="fw-bold text-dark"><i class="bi bi-image me-2"></i>[ TEMPAT MENEMPELKAN TANGKAPAN LAYAR ]</h5>
+            <p class="text-muted small mb-0">Petunjuk: Ketik kata kunci pada kotak pencarian di /katalog, ambil screenshot hasil pencarian buku.</p>
+        </div>
+        <div class="screenshot-caption">Gambar 4.2: Tangkapan Layar Hasil Pencarian Buku Berdasarkan Kata Kunci</div>
+
+        <!-- Screenshot 3 -->
+        <div class="screenshot-frame">
+            <h5 class="fw-bold text-dark"><i class="bi bi-image me-2"></i>[ TEMPAT MENEMPELKAN TANGKAPAN LAYAR ]</h5>
+            <p class="text-muted small mb-0">Petunjuk: Buka salah satu buku dari katalog, ambil screenshot halaman detail informasi buku dan stok.</p>
+        </div>
+        <div class="screenshot-caption">Gambar 4.3: Tangkapan Layar Halaman Detail Informasi Buku (Book Detail)</div>
+
+        <!-- Screenshot 4 -->
+        <div class="screenshot-frame">
+            <h5 class="fw-bold text-dark"><i class="bi bi-image me-2"></i>[ TEMPAT MENEMPELKAN TANGKAPAN LAYAR ]</h5>
+            <p class="text-muted small mb-0">Petunjuk: Buka rute /about di browser, ambil screenshot profil dan visi misi toko buku.</p>
+        </div>
+        <div class="screenshot-caption">Gambar 4.4: Tangkapan Layar Halaman Detail About Us (Tentang Kami)</div>
+
+        <!-- Screenshot 5 -->
+        <div class="screenshot-frame">
+            <h5 class="fw-bold text-dark"><i class="bi bi-image me-2"></i>[ TEMPAT MENEMPELKAN TANGKAPAN LAYAR ]</h5>
+            <p class="text-muted small mb-0">Petunjuk: Buka rute /contact, ambil screenshot formulir kirim pesan pelanggan ke admin.</p>
+        </div>
+        <div class="screenshot-caption">Gambar 4.5: Tangkapan Layar Halaman Formulir Hubungi Kami (Contact to Admin)</div>
+
+        <!-- Screenshot 6 -->
+        <div class="screenshot-frame">
+            <h5 class="fw-bold text-dark"><i class="bi bi-image me-2"></i>[ TEMPAT MENEMPELKAN TANGKAPAN LAYAR ]</h5>
+            <p class="text-muted small mb-0">Petunjuk: Tambahkan buku ke keranjang lalu buka rute /cart, ambil screenshot keranjang belanja.</p>
+        </div>
+        <div class="screenshot-caption">Gambar 4.6: Tangkapan Layar Halaman Keranjang Belanja (Add to Cart)</div>
+
+        <!-- Screenshot 7 -->
+        <div class="screenshot-frame">
+            <h5 class="fw-bold text-dark"><i class="bi bi-image me-2"></i>[ TEMPAT MENEMPELKAN TANGKAPAN LAYAR ]</h5>
+            <p class="text-muted small mb-0">Petunjuk: Lanjut ke rute /checkout, ambil screenshot opsi alamat dan metode pembayaran.</p>
+        </div>
+        <div class="screenshot-caption">Gambar 4.7: Tangkapan Layar Halaman Checkout & Payment at Delivery</div>
+
+        <!-- Screenshot 8 -->
+        <div class="screenshot-frame">
+            <h5 class="fw-bold text-dark"><i class="bi bi-image me-2"></i>[ TEMPAT MENEMPELKAN TANGKAPAN LAYAR ]</h5>
+            <p class="text-muted small mb-0">Petunjuk: Selesaikan checkout, ambil screenshot halaman riwayat pesanan pelanggan (/orders).</p>
+        </div>
+        <div class="screenshot-caption">Gambar 4.8: Tangkapan Layar Halaman Riwayat Pesanan Pelanggan (Order History)</div>
+
+        <!-- Screenshot 9 -->
+        <div class="screenshot-frame">
+            <h5 class="fw-bold text-dark"><i class="bi bi-image me-2"></i>[ TEMPAT MENEMPELKAN TANGKAPAN LAYAR ]</h5>
+            <p class="text-muted small mb-0">Petunjuk: Buka rute /register, ambil screenshot formulir pendaftaran akun baru.</p>
+        </div>
+        <div class="screenshot-caption">Gambar 4.9: Tangkapan Layar Halaman Formulir Registrasi Akun Pelanggan Baru</div>
+
+        <!-- Screenshot 10 -->
+        <div class="screenshot-frame">
+            <h5 class="fw-bold text-dark"><i class="bi bi-image me-2"></i>[ TEMPAT MENEMPELKAN TANGKAPAN LAYAR ]</h5>
+            <p class="text-muted small mb-0">Petunjuk: Buka rute /login, ambil screenshot halaman masuk pengguna dan tombol intip password.</p>
+        </div>
+        <div class="screenshot-caption">Gambar 4.10: Tangkapan Layar Halaman Formulir Login Pengguna & Administrator</div>
+
+        <!-- Screenshot 11 -->
+        <div class="screenshot-frame">
+            <h5 class="fw-bold text-dark"><i class="bi bi-image me-2"></i>[ TEMPAT MENEMPELKAN TANGKAPAN LAYAR ]</h5>
+            <p class="text-muted small mb-0">Petunjuk: Login sebagai admin, ambil screenshot panel dashboard ringkasan metrik (/admin/dashboard).</p>
+        </div>
+        <div class="screenshot-caption">Gambar 4.11: Tangkapan Layar Dashboard Utama Administrator</div>
+
+        <!-- Screenshot 12 -->
+        <div class="screenshot-frame">
+            <h5 class="fw-bold text-dark"><i class="bi bi-image me-2"></i>[ TEMPAT MENEMPELKAN TANGKAPAN LAYAR ]</h5>
+            <p class="text-muted small mb-0">Petunjuk: Buka rute /admin/categories, ambil screenshot tabel kategori dan tombol tambah/edit.</p>
+        </div>
+        <div class="screenshot-caption">Gambar 4.12: Tangkapan Layar Halaman Manajemen Kategori Buku (CRUD Kategori)</div>
+
+        <!-- Screenshot 13 -->
+        <div class="screenshot-frame">
+            <h5 class="fw-bold text-dark"><i class="bi bi-image me-2"></i>[ TEMPAT MENEMPELKAN TANGKAPAN LAYAR ]</h5>
+            <p class="text-muted small mb-0">Petunjuk: Buka rute /admin/books, ambil screenshot tabel data buku, cover, dan kuantitas stok.</p>
+        </div>
+        <div class="screenshot-caption">Gambar 4.13: Tangkapan Layar Halaman Manajemen Data Buku & Inventaris Stok (CRUD Buku)</div>
+
+        <!-- Screenshot 14 -->
+        <div class="screenshot-frame">
+            <h5 class="fw-bold text-dark"><i class="bi bi-image me-2"></i>[ TEMPAT MENEMPELKAN TANGKAPAN LAYAR ]</h5>
+            <p class="text-muted small mb-0">Petunjuk: Buka rute /admin/users, ambil screenshot tabel daftar seluruh pelanggan terdaftar.</p>
+        </div>
+        <div class="screenshot-caption">Gambar 4.14: Tangkapan Layar Halaman Daftar Pengguna Terdaftar (List User)</div>
+
+        <!-- Screenshot 15 -->
+        <div class="screenshot-frame">
+            <h5 class="fw-bold text-dark"><i class="bi bi-image me-2"></i>[ TEMPAT MENEMPELKAN TANGKAPAN LAYAR ]</h5>
+            <p class="text-muted small mb-0">Petunjuk: Buka rute /admin/orders, ambil screenshot tabel pesanan pelanggan multi-user dan statusnya.</p>
+        </div>
+        <div class="screenshot-caption">Gambar 4.15: Tangkapan Layar Halaman Daftar Pesanan Masuk (List Orders Multi-User)</div>
+
+        <!-- Screenshot 16 -->
+        <div class="screenshot-frame">
+            <h5 class="fw-bold text-dark"><i class="bi bi-image me-2"></i>[ TEMPAT MENEMPELKAN TANGKAPAN LAYAR ]</h5>
+            <p class="text-muted small mb-0">Petunjuk: Ambil screenshot terminal saat menjalankan 'php artisan test' dengan hasil 22 passed.</p>
+        </div>
+        <div class="screenshot-caption">Gambar 4.16: Tangkapan Layar Hasil Pengujian Otomatis Terminal (Automated PHPUnit Test)</div>
+
+        <!-- ================= BAB V: PENUTUP ================= -->
+        <h2 class="section-title">BAB V: PENUTUP</h2>
+        <h3 class="subsection-title">5.1 Kesimpulan</h3>
+        <p>Aplikasi BookStore telah berhasil dibangun dan memenuhi 100% persyaratan yang ditentukan pada lembar tugas resmi FR.IA.02 (Nomor Skema: 020403). Seluruh 4 fitur utama Administrator dan 7 fitur utama User telah beroperasi sempurna, didukung arsitektur MVC yang bersih, normalisasi database relasional, komentar/DocBlocks pada setiap fungsi/program, serta pengujian otomatis dengan tingkat kelulusan 100%.</p>
+
+        <h3 class="subsection-title">5.2 Saran Pengembangan</h3>
+        <ol>
+            <li>Integrasi Payment Gateway Otomatis (Midtrans / Xendit) untuk verifikasi pembayaran real-time.</li>
+            <li>Integrasi API Kurir Ekspedisi (RajaOngkir) untuk perhitungan ongkos kirim otomatis.</li>
+            <li>Pengembangan sistem multi-gudang memanfaatkan pemisahan tabel stocks.</li>
+        </ol>
+
+    </div>
+
+</body>
+</html>
