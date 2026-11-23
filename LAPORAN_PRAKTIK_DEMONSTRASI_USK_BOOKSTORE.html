@@ -175,8 +175,8 @@
                         <td>: <a href="https://github.com/Heikkakeren/bookstore" target="_blank">https://github.com/Heikkakeren/bookstore</a></td>
                     </tr>
                     <tr>
-                        <td><strong>Rancangan Mockup UI</strong></td>
-                        <td>: [Tempel Tautan Figma / Canva Anda]</td>
+                        <td><strong>Rancangan Mockup UI (Figma)</strong></td>
+                        <td>: <a href="https://www.figma.com/design/8L52ujKhbVHbf580onSgXC/Untitled?node-id=0-1&t=irJk5jYmsGOsiG04-1" target="_blank" class="fw-bold text-success">https://www.figma.com/design/8L52ujKhbVHbf580onSgXC/Untitled?node-id=0-1&t=irJk5jYmsGOsiG04-1</a></td>
                     </tr>
                 </table>
             </div>
@@ -265,8 +265,8 @@
                 <td><a href="https://github.com/Heikkakeren/bookstore" target="_blank">https://github.com/Heikkakeren/bookstore</a></td>
             </tr>
             <tr>
-                <td><strong>Mockup UI (Figma/Canva)</strong></td>
-                <td><em>[Tempelkan tautan Figma atau Canva Anda di sini]</em></td>
+                <td><strong>Mockup UI (Figma)</strong></td>
+                <td><a href="https://www.figma.com/design/8L52ujKhbVHbf580onSgXC/Untitled?node-id=0-1&t=irJk5jYmsGOsiG04-1" target="_blank" class="fw-bold text-success">https://www.figma.com/design/8L52ujKhbVHbf580onSgXC/Untitled?node-id=0-1&t=irJk5jYmsGOsiG04-1</a> (Kelompok Pekerjaan 1 - 60 Menit)</td>
             </tr>
             <tr>
                 <td><strong>Portal Pengumpulan LSP</strong></td>
@@ -299,6 +299,24 @@ users (1) ---------> (N) orders (1) -----> (N) order_items (N)
         <div class="callout-box">
             <strong>Catatan Desain Basis Data:</strong>
             <p class="mb-0">Pemisahan tabel <code>books</code> dan <code>stocks</code> (relasi 1:1) memisahkan data statis buku dari data kuantitas stok yang dinamis, mencegah locking tabel, serta didukung transaksi atomik <code>DB::transaction()</code>.</p>
+        </div>
+
+        <h3 class="subsection-title">2.4 Perancangan Desain Tampilan (Mockup UI Figma)</h3>
+        <p>Sesuai tugas Kelompok Pekerjaan 1 (Durasi: 60 Menit) pada Unit Kompetensi <strong>J.620100.005.02 (Mengimplementasikan User Interface)</strong>, rancangan visual antarmuka pengguna aplikasi BookStore telah didesain di platform Figma:</p>
+        <div class="callout-box" style="background-color: #f3eee6; border-left: 5px solid var(--forest-primary);">
+            <strong>Tautan Resmi File Desain Figma (Kelompok Pekerjaan 1 - 60 Menit):</strong><br>
+            <a href="https://www.figma.com/design/8L52ujKhbVHbf580onSgXC/Untitled?node-id=0-1&t=irJk5jYmsGOsiG04-1" target="_blank" class="fw-bold" style="color: var(--forest-primary); font-size: 11pt;">https://www.figma.com/design/8L52ujKhbVHbf580onSgXC/Untitled?node-id=0-1&t=irJk5jYmsGOsiG04-1</a>
+            <p class="small text-muted mb-0 mt-1">Rancangan visual antarmuka pengguna BookStore mencakup wireframe dan high-fidelity mockup untuk Katalog Belanja, Detail Buku, Keranjang, Checkout, dan Panel Dashboard Admin.</p>
+        </div>
+
+        <div class="card mb-4 border shadow-sm">
+            <div class="card-header bg-light py-2">
+                <strong style="color: #163326;">Gambar 2.1: Rancangan Visual Antarmuka Pengguna & High-Fidelity Mockup (Figma Canvas)</strong>
+            </div>
+            <div class="card-body p-2 text-center bg-white">
+                <img src="screenshots/figma_mockup.png" class="img-fluid rounded border" alt="Rancangan Visual Antarmuka Pengguna BookStore di Figma" style="max-height: 600px; width: 100%; object-fit: contain;">
+                <p class="text-muted small mt-2 mb-1"><em>Canvas rancangan desain visual antarmuka pengguna BookStore pada Figma (Kelompok Pekerjaan 1 - Unit J.620100.005.02) mencakup seluruh alur UI Katalog, Detail Buku, Keranjang Belanja, Checkout, Autentikasi Pengguna, dan Panel Monitoring Administrator.</em></p>
+            </div>
         </div>
 
         <!-- ================= BAB III: IMPLEMENTASI ================= -->
