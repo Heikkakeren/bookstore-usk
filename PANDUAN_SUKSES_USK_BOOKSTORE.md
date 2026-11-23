@@ -17,7 +17,7 @@ Berdasarkan lembar tugas resmi BNSP/LSP LSPMI:
    * Penulisan kode sesuai *guidelines* dan *best practices* (Clean Code, MVC, Validasi, Eloquent ORM).
    * Gambar/multimedia tidak melanggar hak cipta (Unsplash / SVG bebas lisensi).
 3. **Hasil yang Dikumpulkan:**
-   * Unggah *source code* ke GitHub (`https://github.com/Heikkakeren/bookstore.git`).
+   * Unggah *source code* ke GitHub (`https://github.com/Heikkakeren/bookstore-usk.git`).
    * Laporan Microsoft Word (.docx) berisi: **Link GitHub**, **Link Mockup UI**, dan **Screenshot Tampilan Fitur Aplikasi**.
    * Unggah dokumen laporan ke portal resmi: `https://lspmi.co.id`.
 
@@ -197,8 +197,8 @@ php artisan test
    **LAPORAN TUGAS PRAKTIK DEMONSTRASI (FR.IA.02) - PENGEMBANG WEB PRATAMA**
 2. **Identitas Asesi:** Cantumkan Nama, Nomor Skema (020403), Nama Asesor, dan Tanggal Ujian.
 3. **Link Penting di Halaman Depan:**
-   * **Link Repository GitHub:** `https://github.com/Heikkakeren/bookstore`
-   * **Link Mockup UI Figma/Canva:** *(Sertakan link rancangan UI yang Anda buat)*
+   * **Link Repository GitHub:** `https://github.com/Heikkakeren/bookstore-usk`
+   * **Link Mockup UI Figma:** `https://www.figma.com/design/8L52ujKhbVHbf580onSgXC/Untitled?node-id=0-1&t=irJk5jYmsGOsiG04-1`
 4. **Daftar Tangkapan Layar (Screenshots):**
    * Screenshot 1: Halaman Beranda & Katalog Buku (User)
    * Screenshot 2: Halaman Hasil Pencarian Buku (User)

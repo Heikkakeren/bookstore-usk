@@ -55,8 +55,8 @@ Ikuti langkah-langkah berikut untuk menjalankan aplikasi di lingkungan lokal:
 
 ### 1. Clone Repository
 ```bash
-git clone https://github.com/Heikkakeren/bookstore.git
-cd bookstore
+git clone https://github.com/Heikkakeren/bookstore-usk.git
+cd bookstore-usk
 ```
 
 ### 2. Install Dependensi PHP
@@ -150,4 +150,4 @@ bookstore/
 
 * **Nama:** Magfi Adi Radza Putra ([@Heikkakeren](https://github.com/Heikkakeren))
 * **Email:** radzaadi@gmail.com
-* **Repository:** [https://github.com/Heikkakeren/bookstore](https://github.com/Heikkakeren/bookstore)
+* **Repository:** [https://github.com/Heikkakeren/bookstore-usk](https://github.com/Heikkakeren/bookstore-usk)
