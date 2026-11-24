@@ -518,13 +518,6 @@
                     <p class="small leading-relaxed" style="color: #9cb5a4;">
                         Toko buku modern dengan kurasi karya literatur, teknologi, bisnis, dan sastra terbaik. Menghadirkan buku bermakna untuk menginspirasi setiap lembaran kisah hidup Anda.
                     </p>
-                    <div class="d-flex gap-3 fs-5 mt-3">
-                        <a href="#"><i class="bi bi-instagram"></i></a>
-                        <a href="#"><i class="bi bi-facebook"></i></a>
-                        <a href="#"><i class="bi bi-twitter-x"></i></a>
-                        <a href="#"><i class="bi bi-pinterest"></i></a>
-                        <a href="#"><i class="bi bi-tiktok"></i></a>
-                    </div>
                 </div>
 
                 <!-- Navigation Links -->
