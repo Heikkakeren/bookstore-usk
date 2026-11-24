@@ -4,6 +4,16 @@ Aplikasi web e-commerce dan manajemen inventaris toko buku berbasis **Laravel 11
 
 ---
 
+## 📸 Pratinjau Tampilan Web (Screenshots)
+
+Dokumentasi lengkap tangkapan layar 18 halaman web dan pengujian unit dapat dilihat di folder [**`screenshots/`**](screenshots/README.md).
+
+| Halaman Utama Katalog | Master Data Buku (Admin) |
+|:---:|:---:|
+| ![Katalog](screenshots/01_halaman_utama_katalog.png) | ![Admin Buku](screenshots/13_admin_manajemen_buku.png) |
+
+---
+
 ## 🌟 Fitur Utama
 
 ### 1. 👥 Pengunjung (Guest / Pre-Login)
