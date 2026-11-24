@@ -69,6 +69,14 @@
                                         @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                     </div>
 
+                                    {{-- [JURUS USK - FIELD NIK]: JIKA ASESOR MINTA TAMBAH NIK, HAPUS KURUNG KOMENTAR {{-- DAN --}} DI BAWAH INI:
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-semibold">NIK (16 Digit) <span class="text-danger">*</span></label>
+                                        <input type="text" name="nik" class="form-control @error('nik') is-invalid @enderror"
+                                               value="{{ old('nik') }}" placeholder="Masukkan 16 digit NIK" maxlength="16">
+                                        @error('nik')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                    </div>
+                                    --}}
 
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label fw-semibold" for="regPassword">Password <span class="text-danger">*</span></label>

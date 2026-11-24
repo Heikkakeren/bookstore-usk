@@ -93,6 +93,8 @@ class AuthController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            // [JURUS USK - FIELD NIK]: Buka baris di bawah jika diminta validasi NIK:
+            // 'nik' => ['required', 'digits:16', 'unique:users,nik'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'phone' => ['nullable', 'string', 'max:20'],
             'address' => ['nullable', 'string', 'max:500'],
@@ -100,6 +102,9 @@ class AuthController extends Controller
             'name.required' => 'Nama wajib diisi.',
             'email.required' => 'Email wajib diisi.',
             'email.unique' => 'Email sudah terdaftar.',
+            // [JURUS USK - FIELD NIK]: Pesan error NIK:
+            // 'nik.required' => 'NIK wajib diisi 16 digit.',
+            // 'nik.digits' => 'NIK harus berupa 16 angka.',
             'password.required' => 'Password wajib diisi.',
             'password.min' => 'Password minimal 8 karakter.',
             'password.confirmed' => 'Konfirmasi password tidak cocok.',
@@ -108,6 +113,8 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
+            // [JURUS USK - FIELD NIK]: Simpan NIK jika diminta:
+            // 'nik' => $validated['nik'] ?? null,
             'password' => Hash::make($validated['password']),
             'role' => 'user',
             'phone' => $validated['phone'] ?? null,

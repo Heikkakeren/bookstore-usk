@@ -55,6 +55,10 @@
                                 @csrf
 
                                 <div class="mb-3">
+                                    {{-- [JURUS USK - LOGIN USERNAME]: JIKA ASESOR MINTA BISA LOGIN PAKAI USERNAME / EMAIL, GANTI LABEL DAN TYPE INPUT DI BAWAH:
+                                    <label class="form-label fw-semibold">Username atau Email</label>
+                                    <input type="text" name="email" class="form-control" placeholder="Masukkan username atau email" required>
+                                    --}}
                                     <label class="form-label fw-semibold">Email</label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="bi bi-envelope"></i></span>

@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        // 'nik', // [JURUS USK - FIELD NIK]: Buka jika diminta simpan NIK
         'password',
         'role',
         'phone',
